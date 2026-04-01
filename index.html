@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Revisa mi portafolio de trabajos">
+
+<title>Portafolio | Alejandro Bjosch</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --nav-height:72px;
+  --fondo:#f2f2f2;
+}
+
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:var(--fondo);
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:var(--nav-height);
+  background:rgba(48,48,48,0.92);
+  display:flex;
+  align-items:center;
+  z-index:200;
+}
+section#contacto h2 { text-align:center; margin-top:0; margin-bottom:32px;}
+section#contacto p { text-align:center; margin-left:auto; margin-right:auto; max-width:700px;}
+section#contacto {background:#fcfcfc;color:var(--text-seccion);}
+form { max-width:600px;width:100%;margin:30px auto 0 auto;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;}
+    form input,form textarea {
+      width:100%;padding:14px;border-radius:8px;border:1px solid #ddd;
+      font-size:16px;background:#f8f8f8;color:var(--text-seccion);outline:none;
+    }
+    form input:focus,form textarea:focus {box-shadow:0 0 5px #ff6f0033;border:1.2px solid #ff6f00;background:#fff;}
+    form button {
+      width:100%;padding:14px;border:none;background:#ff6f00;font-size:18px;color:#fff;
+      border-radius:8px;cursor:pointer;font-weight:600;letter-spacing:0.5px;transition:background 180ms;
+    }
+    form button:hover {background:#e26c00;}
+.nav-inner{
+  max-width:1200px;
+  width:100%;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 20px;
+}
+
+.logo-img{width:140px;}
+
+nav.desktop{
+  display:flex;
+  gap:26px;
+}
+nav.desktop {display:flex;gap:28px;align-items:center;}
+nav.desktop a {color:var(--text-menu);font-weight:500;font-size:14px;padding:8px 6px;transition:color 180ms,transform 180ms;}
+nav.desktop a:hover{color:var(--accent);transform:translateY(-3px);}
+nav.desktop a{
+  color:#fff;
+  text-decoration:none;
+}
+ .cta {background:transparent;border:1px solid rgba(80,80,80,0.08);padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px;color:var(--text-menu);}
+    .cta:hover{background:rgba(35,35,35,0.04);color:#fff;}
+    .cta-primary {
+      background:#ff6f00;
+      border:1px solid #ff6f00;
+      color:#fff;
+    }
+
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  cursor:pointer;
+}
+
+.hamburger span{
+  display:block;
+  width:24px;
+  height:2px;
+  background:#fff;
+  margin:5px 0;
+}
+
+/* OFFCANVAS */
+.offcanvas{
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:280px;
+  height:100vh;
+  background:#000;
+  padding:40px 20px;
+  transition:.3s;
+  z-index:300;
+}
+.offcanvas nav a {color:#fff;font-size:18px;padding:12px 8px;display:block;border-radius:8px;background:none;font-weight:500;transition:background 0.15s,color .15s;}
+.offcanvas nav a:hover{background:rgba(255,255,255,0.06);color:var(--accent);}
+.offcanvas.open{right:0;}
+
+.offcanvas a{
+  display:block;
+  color:#fff;
+  margin-bottom:15px;
+  text-decoration:none;
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:250;
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* HERO */
+.hero{
+  padding-top:120px;
+  text-align:center;
+}
+
+.hero h1{
+  margin:0;
+  font-size:32px;
+}
+
+/* MASONRY */
+.masonry{
+  display:flex;
+  gap:20px;
+  max-width:1100px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.column{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.item{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+.item img{
+  width:100%;
+  display:block;
+  transition:.4s;
+}
+
+.item:hover img{
+  transform:scale(1.05);
+}
+
+.overlay-item{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.7), transparent);
+  opacity:0;
+  transition:.3s;
+}
+
+.item:hover .overlay-item{
+  opacity:1;
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:5000;
+}
+
+.lightbox.active{
+  display:flex;
+}
+
+.lightbox-box{
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  max-width:90vw;
+}
+
+.lightbox-media img,
+.lightbox-media video{
+  width:100%;
+  max-height:75vh;
+  object-fit:contain;
+  background:#000;
+}
+
+.lightbox-footer{
+  background:#000;
+  padding:16px 20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.lightbox-footer h3{
+  margin:0;
+  font-size:16px;
+  color:#fff;
+}
+
+.lightbox-footer p{
+  margin:4px 0 0;
+  font-size:13px;
+  color:#bbb;
+}
+
+.close{
+  position:absolute;
+  top:30px;
+  right:30px;
+  color:#fff;
+  font-size:30px;
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav.desktop{display:none;}
+  .hamburger{display:block;}
+  .masonry{flex-direction:column;}
+}
+@media (max-width:600px) {
+      form {max-width:95vw; margin:24px auto 0 auto;padding:0;}
+      footer div{flex-direction: column;align-items:flex-start;}
+    }
+
+</style>
+</head>
+
+<body>
+
+<div id="overlay" class="overlay" aria-hidden="true"></div>
+
+<header>
+  <div class="nav-inner">
+    <!-- Logo reemplazado por texto -->
+    <a href="index.html" style="color:#fff; font-weight:700; font-size:21px; text-decoration:none; line-height: 1;">
+      Alejandro Bjosch<br><span style="font-size: 12px;">Publicista & Prodcutor digital</span>
+    </a>
+
+    <nav class="desktop">
+      <a href="#home">Home</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="hamburger" id="hambtn">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+<div class="offcanvas" id="offcanvas">
+  <a href="#home">Home</a>
+  <a href="#portafolio">Portafolio</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<!-- Nuevo Header Visual con Overlay -->
+<section id="home" class="hero" style="padding-top:60px; position:relative; text-align:center;">
+
+  <!-- Video de fondo -->
+  <video autoplay muted loop playsinline style="width:100%; height:auto; object-fit:cover; border-radius:0px;">
+    <source src="https://www.adsmediaestudio.cl/images/trabajos/umai_1920x1080.mp4" type="video/mp4">
+    Tu navegador no soporta video.
+  </video>
+
+  <!-- Overlay oscuro -->
+  <div style="
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.4);
+      border-radius:0px;
+  "></div>
+
+  <!-- Contenido del overlay -->
+  <div style="
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      color:#fff;
+      text-align:center;
+      padding:10px;
+  ">
+    <h1 style="font-size:36px; margin-bottom:10px; padding-top: 200px;">Alejandro Bjosch</h1>
+    <p style="font-size:18px; max-width:800px; margin:auto;">
+      Publicista & Productor digital<br>
+      <span style="font-size:16px;">Creamos experiencias digitales diseñadas para destacar y generar resultados.</span>
+    </p>
+
+  </div>
+
+</section>
+<div id="portafolio" style="text-align: center; padding-top: 80px;">
+
+  <h1>Portafolio de mis últimos trabajos</h1>
+  
+</div>
+
+<div class="masonry">
+
+  <div class="column">
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/honor_generico.mp4','video','Cliente: Claro','Campaña Meta Ads & Google Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/honor_generico.jpg">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/cyber_peugeot_1200x1200.jpg','img', 'Cliente: Peugeot','Campaña Cyber Peugeot')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/cyber_peugeot_1200x1200.jpg" alt="Campaña digital Peugeot Chile Cyber Peugeot">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/umai_cremas_1080x1080.mp4','video','Cliente: UMAI','Campaña Meta Ads & Google Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/umai_cremas_1080x1080.png" alt="Campaña digital UMAI en Meta Ads & Google Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/rallymobil_1080x1920.mp4','video','Cliente: Copec','Campaña Meta Ads & Google Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/rallymobil_1080x1920.png" alt="Campaña digital Copec en Meta Ads & Google Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/ga_tucson_1920x1080.mp4','video','Cliente: Gildemeister Retail','Campaña Google Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/gildemeister_retail.png" alt="Campaña digital Gildemeister Retail Google Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/mitta_cupones_1920x1080.mp4','video','Cliente: Mitta Rent a car','Campaña Vía pública')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/mitta_cupones.png" alt="Campaña digital Mitta Rent a Car en Vía pública">
+      <div class="overlay-item"></div>
+    </div>
+
+
+
+  </div>
+
+  <div class="column">
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/nexans_1080x1350.jpg','img','Cliente: Nexans','Campaña en RRSS')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/nexans_1080x1350.jpg" alt="Campaña digital Nexans en RRSS">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/servel_1920x1080.mp4','video' ,'Cliente: SERVEL','Campaña Vía pública')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/servel_via_publica.png" alt="Campaña digital SERVEL Vía pública">
+      <div class="overlay-item"></div>
+    </div>
+
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/claroclub_960x1200.jpg','img' ,'Cliente: Claro','Campaña Meta Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/claroclub_960x1200.jpg" alt="Campaña digital Claro Chile Meta Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/peugeot_208_1080x1080.mp4','video','Cliente: Peugeot','Campaña Meta Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/peugeot_208_1080x1080.png" alt="Campaña digital Peugeot Meta Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/umai_1920x1080.mp4','video','Cliente: UMAI','Campaña Vía pública')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/umai_1920x1080.png" alt="Campaña digital UMAI Vía pública">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/peugeot_2008_1080x1920.mp4','video','Cliente: Peugeot','Campaña RRSS')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/peugeot_2008.png" alt="Campaña digital Peugeot Chile RRSS">
+      <div class="overlay-item"></div>
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/nexans_1080x1350.mp4','video', 'Cliente: Nexans','Campaña en RRSS')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/nexans_video_1080x1350.png" alt="Campaña digital Nexans RRSS">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/rallymobil_1080x1350.jpg','img','Cliente: Copec','Campaña Meta Ads & Google Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/rallymobil_1080x1350.jpg" alt="Campaña digital Copec Meta Ads & Google Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/claro_redays.jpg','img','Cliente: Claro','Campaña Meta Ads')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/claro_redays.jpg" alt="Campaña digital Claro Chile Meta Ads">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/prensa_servel.png','img','Cliente: SERVEL','Campaña Prensa Nacional & Regional')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/prensa_servel.png" alt="Campaña digital SERVEL Aviso de prensa">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/cyber_peugeot_1080x1080.mp4','video','Cliente: Peugeot','Campaña Cyber Peugeot')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/cyber_peugeot_1080x1080.png" alt="Campaña digital Cyber Peugeot">
+      <div class="overlay-item"></div>
+    </div>
+
+    <div class="item" onclick="openLightbox('https://www.adsmediaestudio.cl/images/trabajos/sachet_ballerina_bol.mp4','video','Cliente: Ballerina','Campaña Tv Bolivia')">
+      <img src="https://www.adsmediaestudio.cl/images/trabajos/sachet_ballerina.png" alt="Campaña Ballerina spot television">
+      <div class="overlay-item"></div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="close" onclick="closeLightbox()">×</div>
+  <div id="lightboxContent"></div>
+</div>
+
+<section id="contacto" style="padding:80px 20px;">
+      <div style="max-width:1100px;margin:0 auto">
+        <h2>Contacto</h2>
+        <p>
+Cuéntanos sobre tu proyecto y te ayudaremos a desarrollar <br>una estrategia de marketing digital orientada a resultados.
+</p>
+        <p>Teléfono / WhatsApp: <a href="https://wa.me/56958532237" target="_blank" rel="noopener">+56 9 5853 2237</a></p>
+        <form action="enviar.php" method="POST">
+          <input type="text" name="nombre" placeholder="Tu nombre" required aria-label="Tu nombre">
+          <input type="email" name="email" placeholder="Correo electrónico" required aria-label="Correo electrónico">
+          <textarea name="mensaje" rows="5" placeholder="Mensaje" required aria-label="Mensaje"></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+        <p style="font-size:10px; color:#777; margin-top:10px;"></p>
+      </div>
+    </section>
+
+<footer style="background:#232323; color:#fff; padding:20px 0; font-size:14px;">
+    <div style="max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      
+      <div>
+        <a href="https://wa.me/56958532237" target="_blank" aria-label="WhatsApp" style="color:#fff; margin-right:18px; font-size:24px;">
+          <i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/adsmediaestudio" target="_blank" aria-label="Instagram" style="color:#fff; margin-right:18px; font-size:24px;">
+          <i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const hambtn = document.getElementById('hambtn');
+const offcanvas = document.getElementById('offcanvas');
+const overlay = document.getElementById('overlay');
+
+hambtn.onclick = () => {
+  offcanvas.classList.toggle('open');
+  overlay.classList.toggle('show');
+};
+
+overlay.onclick = () => {
+  offcanvas.classList.remove('open');
+  overlay.classList.remove('show');
+};
+
+function openLightbox(src,type,cliente,campana){
+  const container = document.getElementById('lightboxContent');
+
+  if(type === 'img'){
+    container.innerHTML = `
+      <div class="lightbox-box">
+        <div class="lightbox-media">
+          <img src="${src}">
+        </div>
+        <div class="lightbox-footer">
+          <h3>${cliente}</h3>
+          <p>${campana}</p>
+        </div>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <div class="lightbox-box">
+        <div class="lightbox-media">
+          <video src="${src}" controls autoplay></video>
+        </div>
+        <div class="lightbox-footer">
+          <h3>${cliente}</h3>
+          <p>${campana}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox(){
+  const container = document.getElementById('lightboxContent');
+  const video = container.querySelector('video');
+
+  if(video){
+  video.pause();
+  video.currentTime = 0;
+  video.load(); // resetea correctamente sin romper audio
+}
+
+
+  container.innerHTML = "";
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==="Escape") closeLightbox();
+});
+</script>
+
+</body>
+</html>
