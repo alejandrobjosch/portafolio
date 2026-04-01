@@ -257,8 +257,19 @@ nav.desktop a{
 @media (max-width:600px) {
       form {max-width:95vw; margin:24px auto 0 auto;padding:0;}
       footer div{flex-direction: column;align-items:flex-start;}
-    }
-
+.hero-overlay h1{
+    padding-top: 200px !important;
+    font-size:18px !important; /* más pequeño */
+    margin-bottom:2px !important; /* más pegado al p */
+    line-height: 1;
+  }
+  .hero-overlay p{
+    font-size:12px !important; /* más pequeño */
+    white-space: nowrap !important; /* fuerza una sola línea */
+    margin: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>
 </head>
 
@@ -314,7 +325,7 @@ nav.desktop a{
   "></div>
 
   <!-- Contenido del overlay -->
-  <div style="
+  <div class="hero-overlay" style="
       position:absolute;
       top:50%;
       left:50%;
@@ -333,7 +344,7 @@ nav.desktop a{
 </section>
 <div id="portafolio" style="text-align: center; padding-top: 80px;">
 
-  <h1>Portafolio de mis últimos trabajos</h1>
+  <h1>Portafolio 2025 - 2026</h1>
   
 </div>
 
